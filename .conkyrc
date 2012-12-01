@@ -1,0 +1,120 @@
+################################################################################################
+#                                 Conky-Blue						       #
+#											       #
+#  Author  : Tanner Middleton								       #
+#  Version : 1.0  									       #
+#  License : Distributed under the terms of GNU GPL version 2 or later			       #
+# 											       #
+################################################################################################
+
+background yes
+update_interval 1
+
+cpu_avg_samples 2
+net_avg_samples 2
+temperature_unit celsius
+
+double_buffer yes
+no_buffers yes
+text_buffer_size 2048
+
+gap_x -65
+gap_y 20
+minimum_size 300 550
+maximum_width 450
+own_window yes
+own_window_type override
+own_window_transparent yes
+#own_window_colour 888888 
+own_window_hints undecorate,sticky,skip_taskbar,skip_pager,below
+border_inner_margin 0
+border_outer_margin 0
+alignment tl
+
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+
+override_utf8_locale yes
+use_xft yes
+xftfont caviar dreams:size=8
+xftalpha 0.5
+uppercase no
+
+background yes
+default_color 35b5e5
+color1 DDDDDD
+color2 AAAAAA
+color3 888888
+color4 666666
+
+################################################################################################
+#################################### System Information ########################################
+################################################################################################
+
+TEXT
+${voffset -20}
+${goto 90}${color4}${font ubuntu:size=22}${color 35b5e5}${time %e}${color 35b5e5}${offset 10}${font ubuntu:size=20}${goto 90}${color2}${voffset -2}${offset 50}${font ubuntu:size=22}${time %b}${voffset -2}
+${voffset -25}
+${offset 90}${font ubuntu:size=20}${time %a,    }${color }${time %I:%M %P}${voffset -15}
+
+${font ubuntu:size=12}${offset 90}${color slate grey}${color }$sysname
+${offset 90}${color slate grey}UpTime: ${color }$uptime
+${offset 90}${color slate grey}Kernel: ${color }$kernel
+${offset 90}${color slate grey}IP Address: ${color} ${exec wget -q -O - checkip.dyndns.org | sed -e 's/.*Current IP Address: //' -e 's/<.*$//'}
+${offset 90}${color slate grey}${execpi 60 python ~/conkymail/imap.py}
+
+################################################################################################
+#################################### CPU Information ###########################################
+################################################################################################
+
+${voffset -60}
+${goto 90}${font Ubuntu:size=12,weight:bold}${color}CPU Usage:  ${cpu}%
+${offset 90}${acpitemp}${font Ubuntu:size=10, weight:bold} Degrees
+${offset 90}${cpubar 12}
+${goto 90}${font Ubuntu:size=10,weight:normal}${color1}${top name 1}${alignr}${top cpu 1}%
+${goto 90}${font Ubuntu:size=10,weight:normal}${color2}${top name 2}${alignr}${top cpu 2}%
+${goto 90}${font Ubuntu:size=10,weight:normal}${color3}${top name 3}${alignr}${top cpu 3}%
+${goto 90}${font Ubuntu:size=10,weight:normal}${color3}${top name 4}${alignr}${top cpu 4}%
+${goto 90}${font Ubuntu:size=10,weight:normal}${color3}${top name 5}${alignr}${top cpu 5}%
+${goto 90}${voffset 5}${font Ubuntu:size=15,weight:normal}${color}${processes} process 
+
+################################################################################################
+#################################### Memory Information ########################################
+################################################################################################
+
+${voffset -40}
+${goto 90}${font Ubuntu:size=12,weight:bold}${color}RAM ${memperc}%
+${offset 90}${membar 12}
+${goto 90}${font Ubuntu:size=10,weight:normal}${color1}${top_mem name 1}${alignr}${top_mem mem 1}%
+${goto 90}${font Ubuntu:size=10,weight:normal}${color2}${top_mem name 2}${alignr}${top_mem mem 2}%
+${goto 90}${font Ubuntu:size=10,weight:normal}${color3}${top_mem name 3}${alignr}${top_mem mem 3}%
+${goto 90}${font Ubuntu:size=10,weight:normal}${color3}${top_mem name 4}${alignr}${top_mem mem 4}%
+${goto 90}${font Ubuntu:size=10,weight:normal}${color3}${top_mem name 5}${alignr}${top_mem mem 5}%
+
+################################################################################################
+################################### Network Speed ##############################################
+################################################################################################
+
+${offset 90}${font Ubuntu:size=12,weight:bold}${color}Upload: ${color2 }${font Ubuntu:size=10}${upspeed eth0}k/s${color}
+${offset 90}${upspeedgraph eth0 30,208 000000 35b5e5}
+
+${offset 90}${font Ubuntu:size=12,weight:bold}${color}Download: ${color2 }${font Ubuntu:size=10}${downspeed eth0}k/s${color}
+${offset 90}${downspeedgraph eth0 30,208 000000 35b5e5}
+
+################################################################################################
+#################################### Disk Usage ################################################
+################################################################################################
+
+${voffset -35}
+${goto 90}${font Ubuntu:size=12,weight:bold}${color}Disk Space - ${fs_free_perc /}% Free
+${voffset -20}
+${goto 90}${font Ubuntu:size=10,weight:normal}${color3}used: ${fs_used /} ${voffset 8}
+${offset 90}${color}${fs_bar 12}
+
+################################################################################################
+################################################################################################
+################################################################################################
+
+
